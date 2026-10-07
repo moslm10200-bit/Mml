@@ -28,7 +28,7 @@ window.HERO_INTERVAL = 4000; // مدة التبديل بالمللي ثانية
 // ============ المنتجات ============
 // image: رابط/مسار صورة المنتج. إذا تركتها "" يُرسم كوب ملون تلقائياً حسب color.
 window.PRODUCTS = [
-  { id: 1, name: "ستراو ميلك",       price: 15000, color: "#f472b6", image: "" },
+  { id: 1, name: "ستراو ميلك",       price: 15000, color: "#f472b6", image: "1791411548384.jpg" },
   { id: 2, name: "ستراو ميلك وسط",   price: 12000, color: "#fb7185", image: "" },
   { id: 3, name: "مانجو كريمي",      price: 16000, color: "#fbbf24", image: "" },
   { id: 4, name: "تارو كريمي",       price: 17000, color: "#a78bfa", image: "" },
