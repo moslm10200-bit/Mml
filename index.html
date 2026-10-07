@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>متجر المشروبات</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+
+    <!-- الشريط العلوي: السلة على اليمين -->
+    <header class="topbar">
+      <button class="cart-btn" id="cartBtn" aria-label="السلة">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1.5"/><circle cx="19" cy="21" r="1.5"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.5L22 7H6"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <div class="store-name" id="storeName"></div>
+    </header>
+
+    <!-- الصورة العلوية (تتحكم بها من products.js) -->
+    <section class="hero" id="hero"></section>
+
+    <!-- البحث -->
+    <div class="search-wrap">
+      <input id="search" type="search" placeholder="ابحث عن منتج...">
+    </div>
+
+    <!-- المنتجات -->
+    <main class="grid" id="products"></main>
+
+    <footer class="footer">جميع الحقوق محفوظة</footer>
+  </div>
+
+  <!-- السلة -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="drawer">
+    <div class="drawer-head">
+      <h2>سلة المشتريات</h2>
+      <button id="closeCart" class="close">✕</button>
+    </div>
+    <div class="drawer-body" id="cartItems"></div>
+    <div class="drawer-foot">
+      <div class="total">المجموع: <b id="cartTotal">0</b></div>
+      <button class="wa-btn" id="waBtn">انقر للشراء عبر واتس اب</button>
+      <button class="clear-btn" id="clearBtn">تفريغ السلة</button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="firebase-config.js"></script>
+  <script src="products.js"></script>
+  <script src="firebase-adapter.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
