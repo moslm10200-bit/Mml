@@ -64,7 +64,9 @@
         ? `url("${s.image}")`
         : `linear-gradient(135deg, ${(s.colors || ["#ec4899", "#8b5cf6"]).join(",")})`;
       d.innerHTML = `<div class="txt"><h1>${s.title || ""}</h1><p>${s.subtitle || ""}</p><button class="cta">تسوّق الآن</button></div>` +
-        (s.image ? "" : `<div class="art">${cupSvg(s.cup || "#f9a8d4", "h" + i)}</div>`);
+        (s.image ? "" : (s.cupImage
+          ? `<div class="art img"><img src="${s.cupImage}" alt=""></div>`
+          : `<div class="art">${cupSvg(s.cup || "#f9a8d4", "h" + i)}</div>`));
       d.querySelector(".cta").onclick = () => $("menu").scrollIntoView({ behavior: "smooth" });
       hero.appendChild(d);
     });

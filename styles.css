@@ -76,12 +76,12 @@ button, input { font-family: inherit; }
 }
 .slide {
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between;
-  padding: 22px 24px; background-size: cover; background-position: center;
+  padding: 22px 24px; background-size: cover; background-position: center; color: #fff;
   opacity: 0; transition: opacity .8s; pointer-events: none;
 }
 .slide.active { opacity: 1; pointer-events: auto; }
 .slide.photo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(to left, rgba(0,0,0,.55), rgba(0,0,0,.05)); }
-.slide .txt { position: relative; z-index: 1; max-width: 62%; }
+.slide .txt { position: relative; z-index: 1; max-width: 58%; }
 .slide h1 { margin: 0 0 6px; font-size: 26px; line-height: 1.25; font-weight: 800; letter-spacing: -.3px; text-shadow: 0 2px 10px rgba(0,0,0,.25); }
 .slide p { margin: 0 0 14px; font-size: 14px; opacity: .95; }
 .cta {
@@ -90,6 +90,9 @@ button, input { font-family: inherit; }
 }
 .slide .art { position: relative; z-index: 1; width: 36%; max-width: 150px; animation: float 3.2s ease-in-out infinite; filter: drop-shadow(0 12px 14px rgba(0,0,0,.28)); }
 .slide .art svg { width: 100%; height: auto; display: block; transform: rotate(-8deg); }
+/* كوب من صورة (cupImage): نفس الطفو للأعلى والأسفل ونفس الميلان، وصورة PNG بخلفية شفافة (غيّر height لتكبير الكوب أو تصغيره) */
+.slide .art.img { width: auto; max-width: none; }
+.slide .art img { height: 125px; width: auto; display: block; transform: rotate(-8deg); }
 @keyframes float { 50% { transform: translateY(-8px); } }
 .dots { position: absolute; bottom: 10px; left: 0; right: 0; display: flex; justify-content: center; gap: 6px; z-index: 2; }
 .dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.5); transition: .3s; }
