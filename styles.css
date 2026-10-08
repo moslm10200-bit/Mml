@@ -114,9 +114,16 @@ button, input { font-family: inherit; }
 .section-title { margin: 18px 18px 0; font-size: 22px; font-weight: 800; letter-spacing: -.3px; }
 
 /* ===== المنتجات ===== */
-.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 14px 16px 30px; }
-@media (min-width: 700px)  { .grid { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 1000px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+/* المنتجات بشكل عرضي: تسحب يميناً/يساراً، ويظهر جزء من المنتج التالي ليفهم العميل أن هناك المزيد */
+.grid {
+  display: flex; gap: 14px; padding: 14px 16px 30px;
+  overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
+  scroll-padding: 0 16px; scrollbar-width: none;
+}
+.grid::-webkit-scrollbar { display: none; }
+/* عرض البطاقة: يظهر منتجان كاملان وربع الثالث (غيّر 2.25 لتغيير مقدار الجزء الظاهر) */
+.card { flex: 0 0 calc((100vw - 44px) / 2.25); scroll-snap-align: start; }
+@media (min-width: 700px) { .card { flex: 0 0 210px; } }
 .card {
   background: #fff; color: #1c1c1e; border-radius: 26px; overflow: hidden;
   display: flex; flex-direction: column; border: 1px solid #eee; box-shadow: 0 8px 22px rgba(60,30,140,.13);
@@ -126,16 +133,16 @@ button, input { font-family: inherit; }
 .img { aspect-ratio: 1/1.08; background-repeat: no-repeat; }
 .img.photo { background-size: cover; background-position: center; }
 .img.gen { background-size: 74% auto, cover; background-position: center 60%, center; }
-.info { padding: 12px 12px 14px; display: flex; flex-direction: column; gap: 8px; text-align: center; }
-.name { font-weight: 700; font-size: 16px; letter-spacing: -.1px; }
-.price { font-weight: 800; font-size: 18px; color: var(--purple); }
+.info { padding: 12px 10px 14px; display: flex; flex-direction: column; gap: 8px; text-align: center; flex: 1; }
+.name { font-weight: 700; font-size: 15px; line-height: 1.35; letter-spacing: -.1px; }
+.price { font-weight: 800; font-size: 17px; color: var(--purple); }
 .buy {
   background: linear-gradient(180deg, var(--green), var(--green-dark)); color: #fff; border: 0;
-  border-radius: 14px; padding: 12px; font-size: 16px; font-weight: 700; cursor: pointer;
+  border-radius: 14px; padding: 12px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: auto;
   box-shadow: 0 6px 14px rgba(52,199,89,.35); transition: transform .12s;
 }
 .buy:active { transform: scale(.96); }
-.empty { grid-column: 1/-1; text-align: center; padding: 34px; opacity: .85; }
+.empty { flex: 0 0 100%; text-align: center; padding: 34px; opacity: .85; }
 .footer { text-align: center; padding: 8px 16px 28px; color: #8e8e93; font-size: 13px; }
 
 /* ===== السلة (ورقة تصعد من الأسفل مثل iOS) ===== */
@@ -182,3 +189,25 @@ button, input { font-family: inherit; }
   transition: .3s; opacity: 0; font-size: 15px; font-weight: 600; white-space: nowrap;
 }
 .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* ===== رمز QR ===== */
+.qr-btn {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; cursor: pointer;
+  background: #f3effd; border: 1px solid #e4dcfb; color: var(--purple);
+  display: grid; place-items: center; animation: qrpulse 2.2s infinite;
+}
+@keyframes qrpulse { 0% { box-shadow: 0 0 0 0 rgba(91,33,182,.35); } 70% { box-shadow: 0 0 0 10px rgba(91,33,182,0); } 100% { box-shadow: 0 0 0 0 rgba(91,33,182,0); } }
+.qr-modal {
+  position: fixed; left: 50%; top: 50%; width: min(340px, 88vw); z-index: 12;
+  background: #fff; color: #1c1c1e; border-radius: 28px; padding: 24px 20px 24px; text-align: center;
+  transform: translate(-50%, -46%) scale(.92); opacity: 0; pointer-events: none; transition: .3s;
+  box-shadow: 0 30px 80px rgba(20,10,80,.45);
+}
+.qr-modal.show { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
+.qr-modal .close { position: absolute; top: 12px; left: 12px; }
+.qr-title { font-size: 19px; font-weight: 800; margin: 4px 0 14px; }
+.qr-box { background: #fff; border: 1px solid #eee; border-radius: 20px; padding: 12px; box-shadow: 0 6px 18px rgba(60,30,140,.10); }
+.qr-box img { width: 100%; max-width: 260px; display: block; margin: 0 auto; }
+/* خط الآيفون السائد (SF) لجملة الدعم الفني */
+.qr-support { margin-top: 16px; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Arabic", "Segoe UI", system-ui, sans-serif; font-size: 17px; font-weight: 600; color: #3a3a3c; direction: rtl; }
+.qr-support bdi { color: var(--purple); font-weight: 700; display: inline-block; direction: ltr; unicode-bidi: bidi-override; }

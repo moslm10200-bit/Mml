@@ -60,13 +60,22 @@
     slides.forEach((s, i) => {
       const d = document.createElement("div");
       d.className = "slide" + (i === 0 ? " active" : "") + (s.image ? " photo" : "");
+      d.style.color = "#fff";
       d.style.backgroundImage = s.image
         ? `url("${s.image}")`
         : `linear-gradient(135deg, ${(s.colors || ["#ec4899", "#8b5cf6"]).join(",")})`;
       d.innerHTML = `<div class="txt"><h1>${s.title || ""}</h1><p>${s.subtitle || ""}</p><button class="cta">تسوّق الآن</button></div>` +
         (s.image ? "" : (s.cupImage
-          ? `<div class="art img"><img src="${s.cupImage}" alt=""></div>`
+          ? `<div class="art img" style="width:auto;max-width:none"><img src="${s.cupImage}" alt="" style="height:125px;width:auto;max-width:none;display:block;transform:rotate(-8deg)"></div>`
           : `<div class="art">${cupSvg(s.cup || "#f9a8d4", "h" + i)}</div>`));
+      // ضبط ثابت من الكود (يعمل حتى لو كان styles.css قديماً): لون أبيض + حجم وميلان كوب الصورة
+      d.style.color = "#fff";
+      const ci = d.querySelector(".art.img");
+      if (ci) {
+        ci.style.width = "auto"; ci.style.maxWidth = "none";
+        ci.querySelector("img").style.cssText = "height:125px;width:auto;display:block;transform:rotate(-8deg)";
+        d.querySelector(".txt").style.maxWidth = "58%";
+      }
       d.querySelector(".cta").onclick = () => $("menu").scrollIntoView({ behavior: "smooth" });
       hero.appendChild(d);
     });
@@ -193,6 +202,14 @@
   $("waBtn").onclick = checkout;
   $("clearBtn").onclick = () => { cart = []; save(); renderCart(); };
   $("search").oninput = renderProducts;
+
+  // ---------- رمز QR ----------
+  $("qrImg").src = CFG.qrImage || "";
+  $("qrSupportLabel").textContent = CFG.supportLabel || "";
+  $("qrPhone").textContent = CFG.supportPhone || "";
+  const openQr = () => { $("qrModal").classList.add("show"); $("qrOverlay").classList.add("show"); };
+  const closeQr = () => { $("qrModal").classList.remove("show"); $("qrOverlay").classList.remove("show"); };
+  $("qrBtn").onclick = openQr; $("qrClose").onclick = closeQr; $("qrOverlay").onclick = closeQr;
 
   renderHero(); renderChips(); renderProducts(); renderCart();
 })();
