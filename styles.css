@@ -114,16 +114,9 @@ button, input { font-family: inherit; }
 .section-title { margin: 18px 18px 0; font-size: 22px; font-weight: 800; letter-spacing: -.3px; }
 
 /* ===== المنتجات ===== */
-/* المنتجات بشكل عرضي: تسحب يميناً/يساراً، ويظهر جزء من المنتج التالي ليفهم العميل أن هناك المزيد */
-.grid {
-  display: flex; gap: 14px; padding: 14px 16px 30px;
-  overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
-  scroll-padding: 0 16px; scrollbar-width: none;
-}
-.grid::-webkit-scrollbar { display: none; }
-/* عرض البطاقة: يظهر منتجان كاملان وربع الثالث (غيّر 2.25 لتغيير مقدار الجزء الظاهر) */
-.card { flex: 0 0 calc((100vw - 44px) / 2.25); scroll-snap-align: start; }
-@media (min-width: 700px) { .card { flex: 0 0 210px; } }
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 14px 16px 30px; }
+@media (min-width: 700px)  { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1000px) { .grid { grid-template-columns: repeat(4, 1fr); } }
 .card {
   background: #fff; color: #1c1c1e; border-radius: 26px; overflow: hidden;
   display: flex; flex-direction: column; border: 1px solid #eee; box-shadow: 0 8px 22px rgba(60,30,140,.13);
@@ -133,16 +126,16 @@ button, input { font-family: inherit; }
 .img { aspect-ratio: 1/1.08; background-repeat: no-repeat; }
 .img.photo { background-size: cover; background-position: center; }
 .img.gen { background-size: 74% auto, cover; background-position: center 60%, center; }
-.info { padding: 12px 10px 14px; display: flex; flex-direction: column; gap: 8px; text-align: center; flex: 1; }
-.name { font-weight: 700; font-size: 15px; line-height: 1.35; letter-spacing: -.1px; }
-.price { font-weight: 800; font-size: 17px; color: var(--purple); }
+.info { padding: 12px 12px 14px; display: flex; flex-direction: column; gap: 8px; text-align: center; flex: 1; }
+.name { font-weight: 700; font-size: 16px; letter-spacing: -.1px; }
+.price { font-weight: 800; font-size: 18px; color: var(--purple); }
 .buy {
   background: linear-gradient(180deg, var(--green), var(--green-dark)); color: #fff; border: 0;
   border-radius: 14px; padding: 12px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: auto;
   box-shadow: 0 6px 14px rgba(52,199,89,.35); transition: transform .12s;
 }
 .buy:active { transform: scale(.96); }
-.empty { flex: 0 0 100%; text-align: center; padding: 34px; opacity: .85; }
+.empty { grid-column: 1/-1; text-align: center; padding: 34px; opacity: .85; }
 .footer { text-align: center; padding: 8px 16px 28px; color: #8e8e93; font-size: 13px; }
 
 /* ===== السلة (ورقة تصعد من الأسفل مثل iOS) ===== */
